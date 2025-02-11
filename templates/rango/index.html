@@ -10,9 +10,13 @@
         <div>
             {% if user.is_authenticated %}
             howdy {{ user.username }}
+            {% if profile and profile.picture %}
+            <img src="{{ profile.picture.url }}" alt = "User profile picture">
+            {% endif %}
             {% else %}
             hey there partner!
             {% endif %}
+            <br>
             <strong> {{ boldmessage }}</strong><br />
         </div>
 

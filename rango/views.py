@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from rango.models import Category, Page
+from rango.models import Category, Page, UserProfile
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -16,7 +16,10 @@ def index(request):
     context_dict['boldmessage'] =  'Crunchy, creamy, cookie, candy, cupcake!'
     context_dict['categories'] =  category_list
     context_dict['pages'] =  page_list
-
+    context_dict['profile'] = None
+    if request.user.is_authenticated:
+        context_dict['profile'] = UserProfile.objects.filter(user=request.user).first()
+        
     return render(request, 'rango/index.html', context=context_dict)
 
 def about(request):
